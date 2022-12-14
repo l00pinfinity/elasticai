@@ -1,0 +1,7 @@
+{
+  "name": "elasticai",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
