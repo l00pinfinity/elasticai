@@ -14,6 +14,11 @@ All API requests should include your API key in an Authorization HTTP header as 
     Authorization: Bearer YOUR-API-KEY 
 ```
 
+# Screenshot
+
+![alt text](https://github.com/l00pinfinity/elasticai/blob/main/screenshots/one.jpg?raw=true)
+
+
 # Completions Requests
 
 ### Successful Request
