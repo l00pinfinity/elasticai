@@ -14,7 +14,7 @@ export interface Message{
 }
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer YOUR-API-KEY'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json','Authorization':'Bearer YOUR-API-KEY' })
 };
 
 @Injectable({

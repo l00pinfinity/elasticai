@@ -1,7 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { IonContent } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { IonContent, ToastController } from '@ionic/angular';
 import { DataService } from '../core/services/data.service';
 
 @Component({
@@ -12,20 +10,31 @@ import { DataService } from '../core/services/data.service';
 export class HomePage {
   @ViewChild(IonContent) content!: IonContent;
 
-  messages!: Observable<any[]>;
+  messages$: any;
   newMsg = '';
 
-  constructor(private dataService:DataService, private router: Router) {
+  constructor(private dataService:DataService, public toastCtrl: ToastController) {
     
    }
 
-  sendMessage() {
-    this.dataService.addChatMessage("text-davinci-003",this.newMsg,4000,1.0).subscribe((response:any) =>{
+  async sendMessage() {
+    const toast = this.toastCtrl.create({
+      message: "Message sent",
+      duration: 10000,
+      position: 'bottom',
+      color: 'danger',
+      icon: 'sad'
+    });
+    (await toast).present();
+    setTimeout(async () => {
+      (await toast).dismiss();
+    }, 1000);
+    this.dataService.addChatMessage("text-davinci-003",this.newMsg,4000,1.0).subscribe(async (response:any) =>{
+      this.newMsg = '';
+      this.content.scrollToBottom();
       if (response){
-        console.log(response.choices);
-        this.newMsg = '';
-        this.content.scrollToBottom();
-        this.messages = response.choices[0].text
+        // console.log(response.choices[0].text);
+        this.messages$ = response.choices[0].text;
       }else{
         console.log("Failed to get answer");
       }
